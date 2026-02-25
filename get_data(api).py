@@ -1,11 +1,11 @@
-from openelectricity import OEClient
-from openelectricity.types import DataMetric, UnitFueltechType, UnitStatusType
+
 import pandas as pd
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
 import requests
 import json
+from sqlalchemy import create_engine, text
 
 # Load environment variables from .env file which contains the API key for Open Electricity
 load_dotenv()
@@ -79,3 +79,9 @@ print(df.info())
 
 df.to_csv("nem_energy_data.csv", index=False)
 print("\nData saved to nem_energy_data.csv")
+
+mysql_password = os.getenv("MYSQL_PASSWORD")
+engine = create_engine(f"mysql+pymysql://root:{mysql_password}@localhost/sapn_grid")
+df.to_sql("nem_energy", con=engine, if_exists="replace", index=False)
+
+print("Data saved to MySQL — sapn_grid.nem_energy")
