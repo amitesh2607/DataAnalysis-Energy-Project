@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import os
 import requests
+import json
 
 # Load environment variables from .env file which contains the API key for Open Electricity
 load_dotenv()
@@ -27,9 +28,9 @@ load_dotenv()
 api_key = os.getenv("OPENELECTRICITY_API_KEY")
 
 # The Full  URL
-url = f"https://api.openelectricity.org.au/v4/data/network/NEM?network_region=SA1&interval=1h&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
+url = f"https://api.openelectricity.org.au/v4/data/network/NEM?interval=1d&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
 
-# Headers with API Key 
+# Headers with API Key
 headers = {"Authorization": f"Bearer {api_key}"}
 
 # One-Line Request
@@ -37,6 +38,32 @@ response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
     print("Success! Connection established.")
-    
+
 else:
     print(f"Error {response.status_code}: {response.text}")
+
+json_data = response.json()
+print(json.dumps(json_data, indent=2))
+
+extracted_rows = []
+
+# The Block Loop (e.g., The 'Power' block or the 'Energy' block)
+for block in json_data["data"]:
+    metric_name = block["metric"]  # This is 'power' or 'energy'
+
+    # The 'Result' Loop (This goes through each Fuel Type like Solar, Wind)
+    for result in block["results"]:
+
+        fuel_type = result["columns"].get("fueltech_group", "Unknown")
+        region = result["columns"].get("region", "Unknown")
+
+        # The Observation Loop (The timestamps and numbers)
+        for observation in result["data"]:
+            row = {
+                "timestamp": observation[0],
+                "region": region,
+                "fuel_type": fuel_type,
+                "metric": metric_name,
+                "value": observation[1],
+            }
+            extracted_rows.append(row)
