@@ -22,13 +22,13 @@ url = "https://api.openelectricity.org.au/v4/data/network/NEM"
 headers = {"Authorization": f"Bearer {api_key}"}
 
 end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-start_date = end_date - timedelta(days=7)
+start_date = end_date - timedelta(weeks=4)
 
 load_dotenv()
 api_key = os.getenv("OPENELECTRICITY_API_KEY")
 
 # The Full  URL
-url = f"https://api.openelectricity.org.au/v4/data/network/NEM?interval=1d&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
+url = f"https://api.openelectricity.org.au/v4/data/network/NEM?interval=1h&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
 
 # Headers with API Key
 headers = {"Authorization": f"Bearer {api_key}"}
