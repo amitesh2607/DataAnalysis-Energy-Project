@@ -23,16 +23,22 @@ with OEClient() as client:
     response = client.get_network_data(
         network_code="NEM",
         metrics=[DataMetric.POWER, DataMetric.ENERGY],
-        interval="30m",
+        interval="1h",
         date_start=start_date,
         date_end=end_date,
+        primary_grouping="network_region",
         secondary_grouping="fueltech_group",
     )
 
     df = response.to_pandas()
-    print("\n--- SA Energy Data (First 5 Rows) ---")
+    print("\n--- NEM Energy Data (First 5 Rows) ---")
     print(df.head())
+
+    df.to_csv("nem_energy_data.csv", index=False)
+    print("\nData saved to nem_energy_data.csv")
 
     if "fueltech_group" in df.columns:
         print("\nEnergy Sources found in SA:")
         print(df["fueltech_group"].unique())
+
+    

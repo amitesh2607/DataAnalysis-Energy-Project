@@ -67,3 +67,15 @@ for block in json_data["data"]:
                 "value": observation[1],
             }
             extracted_rows.append(row)
+
+
+df = pd.DataFrame(extracted_rows)
+
+print("\n--- NEM Energy Data (First 5 Rows) ---")
+print(df.head())
+
+print("\n--- DataFrame Summary ---")
+print(df.info())
+
+df.to_csv("nem_energy_data.csv", index=False)
+print("\nData saved to nem_energy_data.csv")
