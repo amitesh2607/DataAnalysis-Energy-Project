@@ -1,4 +1,3 @@
-
 import pandas as pd
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -14,18 +13,16 @@ api_key = os.getenv("OPENELECTRICITY_API_KEY")
 
 # Define the date range for the past week
 end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-start_date = end_date - timedelta(days=7)
+start_date = end_date - timedelta(weeks=1)
 
 # The Direct URL for NEM data
 url = "https://api.openelectricity.org.au/v4/data/network/NEM"
 
 headers = {"Authorization": f"Bearer {api_key}"}
 
-end_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-start_date = end_date - timedelta(weeks=4)
 
 # The Full  URL
-url = f"https://api.openelectricity.org.au/v4/data/network/NEM?interval=1h&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
+url = f"https://api.openelectricity.org.au/v4/data/network/NEM?interval=5m&metrics=power&metrics=energy&primary_grouping=network_region&secondary_grouping=fueltech_group&date_start={start_date.isoformat()}&date_end={end_date.isoformat()}"
 
 # Headers with API Key
 headers = {"Authorization": f"Bearer {api_key}"}
@@ -46,7 +43,7 @@ extracted_rows = []
 
 # The Block Loop (e.g., The power block or the energy block)
 for block in json_data["data"]:
-    metric_name = block["metric"] 
+    metric_name = block["metric"]
 
     # The result loop (This goes through each Fuel Type like Solar, Wind)
     for result in block["results"]:
@@ -84,9 +81,10 @@ print("\n--- DataFrame Summary ---")
 print(df_pivoted.info())
 
 
-
 df_pivoted.to_csv("nem_energy_data.csv", index=False)
 print("\nData saved to nem_energy_data.csv")
+
+
 
 mysql_password = os.getenv("MYSQL_PASSWORD")
 engine = create_engine(f"mysql+pymysql://root:{mysql_password}@localhost/sapn_grid")
