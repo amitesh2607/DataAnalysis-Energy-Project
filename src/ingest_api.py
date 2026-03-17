@@ -63,9 +63,11 @@ for block in json_data["data"]:
             extracted_rows.append(row)
 
 
+# Convert the extracted rows into a DataFrame
 df = pd.DataFrame(extracted_rows)
 df["timestamp"] = pd.to_datetime(df["timestamp"])
 
+# Pivot the DataFrame to have separate columns for each metric (e.g., power, energy)
 df_pivoted = df.pivot_table(
     index=["timestamp", "region", "fuel_type"],
     columns="metric",
@@ -85,7 +87,7 @@ df_pivoted.to_csv("nem_energy_data.csv", index=False)
 print("\nData saved to nem_energy_data.csv")
 
 
-
+# Save the pivoted DataFrame to MySQL
 mysql_password = os.getenv("MYSQL_PASSWORD")
 engine = create_engine(f"mysql+pymysql://root:{mysql_password}@localhost/sapn_grid")
 df_pivoted.to_sql("nem_energy", con=engine, if_exists="replace", index=False)

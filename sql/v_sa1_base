@@ -1,0 +1,26 @@
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `sapn_grid`.`v_sa1_base` AS
+    SELECT 
+        `sapn_grid`.`nem_all`.`date` AS `timestamp`,
+        `sapn_grid`.`nem_all`.`wind__mw` AS `wind_mw`,
+        `sapn_grid`.`nem_all`.`solar_utility__mw` AS `solar_utility_mw`,
+        `sapn_grid`.`nem_all`.`solar_rooftop__mw` AS `solar_rooftop_mw`,
+        `sapn_grid`.`nem_all`.`battery_charging__mw` AS `battery_charging_mw`,
+        `sapn_grid`.`nem_all`.`battery_discharging__mw` AS `battery_discharging_mw`,
+        `sapn_grid`.`nem_all`.`gas_ccgt__mw` AS `gas_ccgt_mw`,
+        `sapn_grid`.`nem_all`.`gas_ocgt__mw` AS `gas_ocgt_mw`,
+        `sapn_grid`.`nem_all`.`gas_steam__mw` AS `gas_steam_mw`,
+        `sapn_grid`.`nem_all`.`gas_reciprocating__mw` AS `gas_reciprocating_mw`,
+        `sapn_grid`.`nem_all`.`distillate__mw` AS `distillate_mw`,
+        `sapn_grid`.`nem_all`.`imports__mw` AS `imports_mw`,
+        `sapn_grid`.`nem_all`.`exports__mw` AS `exports_mw`,
+        `sapn_grid`.`nem_all`.`wind_curtailment__mw` AS `wind_curtailment_mw`,
+        `sapn_grid`.`nem_all`.`solar_utility_curtailment__mw` AS `solar_curtailment_mw`,
+        `sapn_grid`.`nem_all`.`temperature_c` AS `temperature_c`,
+        `sapn_grid`.`nem_all`.`price_audmwh` AS `price`,
+        `sapn_grid`.`nem_all`.`emissions_intensity_kgcoemwh` AS `emissions_intensity`
+    FROM
+        `sapn_grid`.`nem_all`
