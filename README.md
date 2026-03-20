@@ -24,7 +24,7 @@ As the sun moves west from hour 16 onwards, rooftop solar drops off and evening 
 
 **Friday, 27 February 2026 — Low Renewable Day (67.2%)**
 
-![SA Grid Overview — Wednesday 25 February 2026](data/screenshots/Friday.png)
+![SA Grid Overview — Friday 27 February 2026](data/screenshots/Friday.png)
 
 Friday the 27th was the weakest renewable day in the dataset at 67.2%, with gas averaging 427 MW across the entire day which was five times higher than Wednesday. The contrast with Wednesday tells an important story about how differently SA's grid behaves when wind is low.
 
