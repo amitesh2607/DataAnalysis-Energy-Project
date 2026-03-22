@@ -1,6 +1,6 @@
 # SA Grid Analytics
 
-South Australia has one of the most interesting electricity grids in the world. It's coal-free, heavily reliant on wind and rooftop solar, and regularly experiences negative electricity prices, meaning the grid is literally paying people to use power. As someone applying for graduate roles in the energy sector, I wanted to build something that went beyond a generic data project and helped me understand some of the energy challenges we face here.
+South Australia has one of the most interesting electricity grids in the world. It's coal-free, heavily reliant on wind and rooftop solar, and regularly experiences negative electricity prices, meaning the grid is literally paying people to use power. I wanted to build something that went beyond a generic data project and helped me understand some of the energy challenges we face here in SA.
 
 This project pulls real SA electricity generation data from the OpenElectricity API , processes it through through python, loads and transforms it through a MySQL database, and visualises it in Power BI. The dashboard lets you explore how SA's grid behaves across different days like comparing a high-renewable Wednesday where solar drove prices to be negative against a low-wind Friday where gas stepped in to carry the load.
 
